@@ -6,6 +6,15 @@
   <meta name="description" content="Clínica de estética avançada - Realce sua beleza com resultados profissionais">
   <title>Lumière Estética | Beleza que Transforma</title>
   
+  <!-- Vercel Analytics -->
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    var script = document.createElement('script');
+    script.defer = true;
+    script.src = '/_vercel/insights/script.js';
+    document.head.appendChild(script);
+  </script>
+  
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -196,24 +205,6 @@
       background: linear-gradient(145deg, var(--card) 0%, var(--bg) 100%);
     }
     
-    /* Before/After Slider */
-    .comparison-slider {
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .comparison-slider::before {
-      content: '';
-      position: absolute;
-      left: 50%;
-      top: 0;
-      bottom: 0;
-      width: 3px;
-      background: var(--accent);
-      z-index: 10;
-      transform: translateX(-50%);
-    }
-    
     /* Counter Animation */
     @keyframes countUp {
       from { opacity: 0; transform: scale(0.5); }
@@ -222,12 +213,6 @@
     
     .counter-animate {
       animation: countUp 0.6s ease forwards;
-    }
-    
-    /* Parallax Effect */
-    .parallax-bg {
-      transform: translateY(var(--parallax, 0));
-      transition: transform 0.1s linear;
     }
     
     /* Focus States */
@@ -253,6 +238,86 @@
     ::-webkit-scrollbar-thumb:hover {
       background: var(--muted);
     }
+
+    /* Logo Styles */
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-img {
+      height: 44px;
+      width: auto;
+      max-width: 180px;
+      object-fit: contain;
+    }
+
+    .logo-img-footer {
+      height: 52px;
+      width: auto;
+      max-width: 200px;
+      object-fit: contain;
+    }
+
+    .logo-fallback {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .logo-icon svg {
+      width: 22px;
+      height: 22px;
+      color: white;
+    }
+
+    .logo-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--fg);
+    }
+
+    .logo-icon-footer {
+      width: 52px;
+      height: 52px;
+    }
+
+    .logo-text-footer {
+      font-size: 1.75rem;
+      color: white;
+    }
+
+    @media (max-width: 640px) {
+      .logo-img {
+        height: 36px;
+        max-width: 150px;
+      }
+      .logo-text {
+        font-size: 1.25rem;
+      }
+      .logo-icon {
+        width: 38px;
+        height: 38px;
+      }
+      .logo-icon svg {
+        width: 18px;
+        height: 18px;
+      }
+    }
   </style>
 </head>
 <body class="bg-pattern">
@@ -261,14 +326,19 @@
   <header id="header" class="fixed top-0 left-0 right-0 z-50 header-blur border-b border-transparent transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-20">
-        <!-- Logo -->
-        <a href="#inicio" class="flex items-center gap-2" aria-label="Lumière Estética - Início">
-          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-accent to-accent-dark flex items-center justify-center">
-            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
-            </svg>
-          </div>
-          <span class="font-display text-2xl font-semibold tracking-tight">Lumière</span>
+        
+        <!-- ==========================================
+             LOGO DA CLÍNICA
+             
+             Para usar sua logo:
+             1. Coloque o arquivo da logo na mesma pasta do index.html
+             2. Substitua "SUA_LOGO_AQUI.png" pelo nome do seu arquivo
+             3. Substitua "Nome da Sua Clínica" pelo nome real
+             
+             Tamanho recomendado: 180x44px (PNG transparente, SVG ou WebP)
+        ========================================== -->
+        <a href="#inicio" class="logo-container" aria-label="Início" id="headerLogo">
+          <!-- A logo será inserida via JavaScript -->
         </a>
         
         <!-- Desktop Nav -->
@@ -694,20 +764,18 @@
   <footer class="bg-fg text-white py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+        
         <!-- Logo & Description -->
         <div class="lg:col-span-2">
-          <div class="flex items-center gap-2 mb-4">
-            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-accent to-accent-dark flex items-center justify-center">
-              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
-              </svg>
-            </div>
-            <span class="font-display text-2xl font-semibold">Lumière Estética</span>
-          </div>
+          <a href="#inicio" class="logo-container mb-4 inline-flex" id="footerLogo">
+            <!-- A logo será inserida via JavaScript -->
+          </a>
+          
           <p class="text-white/60 max-w-md mb-4">
             Transformando beleza em autoestima há mais de 15 anos. Venha nos visitar e descubra 
             uma nova versão de você.
           </p>
+          
           <div class="flex gap-4">
             <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent transition-colors" aria-label="Instagram">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -761,8 +829,8 @@
       </div>
       
       <div class="border-t border-white/10 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-        <p class="text-white/40 text-sm">
-          2024 Lumière Estética. Todos os direitos reservados.
+        <p class="text-white/40 text-sm" id="copyright">
+          2024 Sua Clínica. Todos os direitos reservados.
         </p>
         <p class="text-white/40 text-sm">
           Desenvolvido com cuidado para você
@@ -783,7 +851,122 @@
   </a>
 
   <script>
-    // Data
+    // ============================================================
+    // CONFIGURAÇÕES DA CLÍNICA
+    // Edite as informações abaixo com os dados da sua clínica
+    // ============================================================
+    
+    const CLINIC_CONFIG = {
+      // Nome da clínica (aparece se não houver logo)
+      name: 'Lumière Estética',
+      
+      // Caminho da logo (deixe vazio '' para usar apenas texto)
+      // Exemplo: 'logo.png', 'images/logo.png', 'https://seudominio.com/logo.png'
+      logoPath: '',
+      
+      // Altura da logo em pixels (ajuste conforme necessário)
+      logoHeight: 44,
+      logoHeightFooter: 52,
+      
+      // Número do WhatsApp (apenas números, com código do país)
+      whatsappNumber: '5511999999999',
+      
+      // Mensagem padrão do WhatsApp
+      whatsappMessage: 'Olá! Gostaria de agendar uma avaliação.',
+      
+      // Endereço
+      address: 'Av. Paulista, 1000 - Bela Vista, São Paulo - SP',
+      
+      // Telefone de exibição
+      phone: '(11) 99999-9999',
+      
+      // Horário de funcionamento
+      hours: 'Seg a Sex: 9h às 20h | Sáb: 9h às 14h',
+      
+      // Ano de fundação (para copyright)
+      foundingYear: 2024
+    };
+
+    // ============================================================
+    // FUNÇÕES DO SISTEMA
+    // ============================================================
+
+    // Função para criar a logo
+    function createLogo(containerId, isFooter = false) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      
+      const heightClass = isFooter ? 'logo-img-footer' : 'logo-img';
+      const iconClass = isFooter ? 'logo-icon logo-icon-footer' : 'logo-icon';
+      const textClass = isFooter ? 'logo-text logo-text-footer' : 'logo-text';
+      
+      if (CLINIC_CONFIG.logoPath) {
+        // Tenta carregar a imagem da logo
+        const img = document.createElement('img');
+        img.src = CLINIC_CONFIG.logoPath;
+        img.alt = CLINIC_CONFIG.name;
+        img.className = heightClass;
+        img.style.height = isFooter ? `${CLINIC_CONFIG.logoHeightFooter}px` : `${CLINIC_CONFIG.logoHeight}px`;
+        
+        img.onerror = function() {
+          // Se a imagem falhar, mostra o fallback
+          this.style.display = 'none';
+          createFallbackLogo(container, iconClass, textClass, isFooter);
+        };
+        
+        container.innerHTML = '';
+        container.appendChild(img);
+      } else {
+        // Se não houver caminho de logo, mostra o fallback
+        createFallbackLogo(container, iconClass, textClass, isFooter);
+      }
+    }
+
+    // Função para criar logo de fallback (ícone + texto)
+    function createFallbackLogo(container, iconClass, textClass, isFooter = false) {
+      const fallback = document.createElement('div');
+      fallback.className = 'logo-fallback';
+      
+      const icon = document.createElement('div');
+      icon.className = iconClass;
+      icon.innerHTML = `
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+        </svg>
+      `;
+      
+      const text = document.createElement('span');
+      text.className = textClass;
+      if (isFooter) {
+        text.style.color = 'white';
+      }
+      text.textContent = CLINIC_CONFIG.name;
+      
+      fallback.appendChild(icon);
+      fallback.appendChild(text);
+      
+      container.innerHTML = '';
+      container.appendChild(fallback);
+    }
+
+    // Função para atualizar links do WhatsApp
+    function updateWhatsAppLinks() {
+      const waUrl = `https://wa.me/${CLINIC_CONFIG.whatsappNumber}?text=${encodeURIComponent(CLINIC_CONFIG.whatsappMessage)}`;
+      
+      document.querySelectorAll('a[href^="https://wa.me/"]').forEach(link => {
+        link.href = waUrl;
+      });
+    }
+
+    // Função para atualizar informações de contato
+    function updateContactInfo() {
+      const copyright = document.getElementById('copyright');
+      if (copyright) {
+        copyright.textContent = `${CLINIC_CONFIG.foundingYear} ${CLINIC_CONFIG.name}. Todos os direitos reservados.`;
+      }
+    }
+
+    // Data de serviços
     const services = [
       {
         icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>`,
@@ -877,7 +1060,7 @@
           </div>
           <h3 class="font-display text-xl font-semibold mb-3">${service.name}</h3>
           <p class="text-muted leading-relaxed">${service.description}</p>
-          <a href="https://wa.me/5511999999999?text=Olá! Tenho interesse no serviço: ${service.name}" 
+          <a href="https://wa.me/${CLINIC_CONFIG.whatsappNumber}?text=${encodeURIComponent('Olá! Tenho interesse no serviço: ' + service.name)}" 
              target="_blank" 
              rel="noopener noreferrer"
              class="inline-flex items-center gap-2 mt-4 text-accent font-medium hover:gap-3 transition-all">
@@ -940,6 +1123,17 @@
 
     // Initialize
     document.addEventListener('DOMContentLoaded', () => {
+      // Criar logos
+      createLogo('headerLogo', false);
+      createLogo('footerLogo', true);
+      
+      // Atualizar links do WhatsApp
+      updateWhatsAppLinks();
+      
+      // Atualizar informações de contato
+      updateContactInfo();
+      
+      // Renderizar conteúdo dinâmico
       renderServices();
       renderResults();
       renderTestimonials();
